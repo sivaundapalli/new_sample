@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="03868322-36b9-4c73-ae0d-cc780b3eee67" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<configuration doc:name="Configuration" doc:id="f37e38e1-fd9f-444c-bc06-0fdcb87284fb" defaultErrorHandler-ref="exceptionError_Handler" />
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="2566a645-d324-4b8e-93b9-9cba8fa409c0" >
+		<http:request-connection host="mulesample.us-e2.cloudhub.io" />
+	</http:request-config>
+	<flow name="sampleFlow" doc:id="d032dc4b-28d3-4463-825b-dd5659aa6b44" >
+		<http:listener doc:name="Listener" doc:id="66425a65-c828-4146-8100-3f8ecfba779a" config-ref="HTTP_Listener_config" path="/shipment"/>
+		<logger level="INFO" doc:name="Logger" doc:id="4445448c-0ce3-4e29-9f33-014fafb82b2b" message="send to request"/>
+		<http:request method="POST" doc:name="Request" doc:id="ab55cdf0-2f54-446f-b75d-8608fc5635a3" config-ref="HTTP_Request_configuration" path="/shipment"/>
+		<logger level="INFO" doc:name="Logger" doc:id="f178b722-35c8-49ac-a2f7-219041bc412f" message="message received from application sample #[payload]" />
+		<logger level="INFO" doc:name="Logger" doc:id="158eb9ab-8ad6-4240-832c-5592e2ba2112" message="okokok"/>
+	</flow>
+</mule>

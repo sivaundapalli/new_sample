@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<configuration doc:name="Configuration" doc:id="6509552c-b68a-414f-bbbf-80d5513551e5" defaultErrorHandler-ref="exceptionError_Handler" />
+	<error-handler name="exceptionError_Handler" doc:id="a26f3c0b-d4c3-4c73-8d0d-dd2f1e772d89" >
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="6a4fdcb1-92f9-4713-a03a-2a1e4229f5ad" type="HTTP:TIMEOUT">
+			<ee:transform doc:name="Transform Message" doc:id="2111084f-d492-4ae0-9d9d-5fd96d4aa8ea">
+				<ee:message>
+					<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message":"timeout error"
+}]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="917471f5-cca7-411a-9786-2545f94ed9dc" type="ANY">
+			<logger level="INFO" doc:name="Logger" doc:id="35d433e6-09d0-4ba9-b27b-26d57c5a596f" message="error-1" />
+		</on-error-propagate>
+	</error-handler>
+</mule>
